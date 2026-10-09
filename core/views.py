@@ -1,15 +1,12 @@
-from crud_views.lib.views import (
-    CreateViewPermissionRequired,
-    DeleteViewPermissionRequired,
-    DetailViewPermissionRequired,
-    ListViewPermissionRequired,
-    ListViewTableFilterMixin,
-    ListViewTableMixin,
-    MessageMixin,
-    UpdateViewPermissionRequired,
-)
 from crud_views.lib.viewset import ViewSet
 
+from .crud import (
+    CrudCreateView,
+    CrudDeleteView,
+    CrudDetailView,
+    CrudListView,
+    CrudUpdateView,
+)
 from .filters import EmployeeFilter, EmploymentTypeFilter, ProductivityGoalFilter
 from .forms import EmployeeForm, EmploymentTypeForm, ProductivityGoalForm
 from .models import Employee, EmploymentType, ProductivityGoal
@@ -22,35 +19,28 @@ employee_viewset = ViewSet(
 )
 
 
-class EmployeeListView(
-    ListViewTableMixin, ListViewTableFilterMixin, ListViewPermissionRequired
-):
+class EmployeeListView(CrudListView):
     cv_viewset = employee_viewset
     table_class = EmployeeTable
     filterset_class = EmployeeFilter
-    paginate_by = 20
-    cv_filter_persistence = False
 
 
-class EmployeeDetailView(DetailViewPermissionRequired):
+class EmployeeDetailView(CrudDetailView):
     cv_viewset = employee_viewset
-    cv_path = ""
     template_name = "core/employee/detail.html"
 
 
-class EmployeeCreateView(MessageMixin, CreateViewPermissionRequired):
+class EmployeeCreateView(CrudCreateView):
     cv_viewset = employee_viewset
-    cv_path = "add"
     form_class = EmployeeForm
 
 
-class EmployeeUpdateView(MessageMixin, UpdateViewPermissionRequired):
+class EmployeeUpdateView(CrudUpdateView):
     cv_viewset = employee_viewset
-    cv_path = "edit"
     form_class = EmployeeForm
 
 
-class EmployeeDeleteView(MessageMixin, DeleteViewPermissionRequired):
+class EmployeeDeleteView(CrudDeleteView):
     cv_viewset = employee_viewset
 
     def cv_check_delete_protection(self):
@@ -68,34 +58,27 @@ employment_type_viewset = ViewSet(
 )
 
 
-class EmploymentTypeListView(
-    ListViewTableMixin, ListViewTableFilterMixin, ListViewPermissionRequired
-):
+class EmploymentTypeListView(CrudListView):
     cv_viewset = employment_type_viewset
     table_class = EmploymentTypeTable
     filterset_class = EmploymentTypeFilter
-    paginate_by = 20
-    cv_filter_persistence = False
 
 
-class EmploymentTypeDetailView(DetailViewPermissionRequired):
+class EmploymentTypeDetailView(CrudDetailView):
     cv_viewset = employment_type_viewset
-    cv_path = ""
 
 
-class EmploymentTypeCreateView(MessageMixin, CreateViewPermissionRequired):
+class EmploymentTypeCreateView(CrudCreateView):
     cv_viewset = employment_type_viewset
-    cv_path = "add"
     form_class = EmploymentTypeForm
 
 
-class EmploymentTypeUpdateView(MessageMixin, UpdateViewPermissionRequired):
+class EmploymentTypeUpdateView(CrudUpdateView):
     cv_viewset = employment_type_viewset
-    cv_path = "edit"
     form_class = EmploymentTypeForm
 
 
-class EmploymentTypeDeleteView(MessageMixin, DeleteViewPermissionRequired):
+class EmploymentTypeDeleteView(CrudDeleteView):
     cv_viewset = employment_type_viewset
 
     def cv_check_delete_protection(self):
@@ -113,32 +96,25 @@ productivity_goal_viewset = ViewSet(
 )
 
 
-class ProductivityGoalListView(
-    ListViewTableMixin, ListViewTableFilterMixin, ListViewPermissionRequired
-):
+class ProductivityGoalListView(CrudListView):
     cv_viewset = productivity_goal_viewset
     table_class = ProductivityGoalTable
     filterset_class = ProductivityGoalFilter
-    paginate_by = 20
-    cv_filter_persistence = False
 
 
-class ProductivityGoalDetailView(DetailViewPermissionRequired):
+class ProductivityGoalDetailView(CrudDetailView):
     cv_viewset = productivity_goal_viewset
-    cv_path = ""
 
 
-class ProductivityGoalCreateView(MessageMixin, CreateViewPermissionRequired):
+class ProductivityGoalCreateView(CrudCreateView):
     cv_viewset = productivity_goal_viewset
-    cv_path = "add"
     form_class = ProductivityGoalForm
 
 
-class ProductivityGoalUpdateView(MessageMixin, UpdateViewPermissionRequired):
+class ProductivityGoalUpdateView(CrudUpdateView):
     cv_viewset = productivity_goal_viewset
-    cv_path = "edit"
     form_class = ProductivityGoalForm
 
 
-class ProductivityGoalDeleteView(MessageMixin, DeleteViewPermissionRequired):
+class ProductivityGoalDeleteView(CrudDeleteView):
     cv_viewset = productivity_goal_viewset
