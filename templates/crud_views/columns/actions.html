@@ -1,0 +1,10 @@
+{% load crud_views %}
+
+<div class="btn-list flex-nowrap">
+  {% cv_context_url 'detail' record as detail_url %}
+  {% cv_context_url 'update' record as update_url %}
+  {% cv_context_url 'delete' record as delete_url %}
+  {% if detail_url %}<a class="btn btn-sm" href="{{ detail_url }}">View</a>{% endif %}
+  {% if update_url %}<a class="btn btn-sm" href="{{ update_url }}">Edit</a>{% endif %}
+  {% if delete_url %}<a class="btn btn-sm btn-outline-danger" href="{{ delete_url }}">Delete</a>{% endif %}
+</div>

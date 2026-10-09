@@ -1,0 +1,29 @@
+{% extends "crud_views/view_detail_custom.html" %}
+{% block detail_extra %}
+
+{% if perms.core.view_productivitygoal %}
+<div class="card mt-3">
+  <div class="card-header"><h2 class="card-title">Productivity goals</h2></div>
+  <div class="table-responsive">
+    <table class="table table-vcenter card-table">
+      <thead>
+        <tr>
+          <th>Employment type</th>
+          <th>Minimum hours</th>
+          <th>Effective from</th>
+          <th>Effective to</th>
+        </tr>
+      </thead>
+
+      <tbody>{% for goal in object.productivity_goals.all %}
+        <tr>
+          <td>{{ goal.employment_type }}</td>
+          <td>{{ goal.minimum_hours }}</td>
+          <td>{{ goal.effective_from }}</td>
+          <td>{{ goal.effective_to|default_if_none:"Open-ended" }}</td>
+        </tr>
+      {% empty %}<tr><td colspan="4">No productivity goals found.</td></tr>{% endfor %}</tbody>
+    </table></div>
+</div>
+{% endif %}
+{% endblock %}

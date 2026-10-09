@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Employees{% endblock %} | RDBHS Backoffice</title>
+  <link rel="icon" type="image/png" href="{% static 'img/rdbhs-icon.png' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+<div class="page">
+  {% include "includes/sidebar.html" %}
+  <main class="page-wrapper">
+    <div class="page-header"><div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col"><h1 class="page-title">{% block heading %}Employees{% endblock %}</h1></div>
+        <div class="col-auto">{% block actions %}{% endblock %}</div>
+      </div>
+    </div></div>
+    <div class="page-body"><div class="container-fluid">
+      {% include "includes/messages.html" %}
+      {% block content %}{% endblock %}
+    </div></div>
+  </main>
+</div>
+</body>
+</html>

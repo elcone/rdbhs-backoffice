@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load crud_views %}
+
+{% block title %}{{ view.cv_header }}{% endblock %}
+{% block heading %}{{ view.cv_header }}{% endblock %}
+
+{% load django_tables2 crud_display %}
+
+{% block actions %}
+{% cv_context_url 'create' as create_url %}
+{% if create_url %}
+<a class="btn btn-primary" href="{{ create_url }}">Add {% model_label view %}</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if filter %}
+<form method="get" class="card card-body mb-3">
+  <div class="row align-items-end g-3">
+    {% include "includes/filter_fields.html" %}
+    {% cv_context_url 'list' as list_url %}
+    <div class="col-auto"><button class="btn btn-primary" type="submit">Apply filters</button> <a class="btn" href="{{ list_url }}">Reset</a></div>
+  </div>
+</form>
+{% endif %}
+<div class="card"><div class="table-responsive">{% render_table table %}</div></div>
+{% endblock %}

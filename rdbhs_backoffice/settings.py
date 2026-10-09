@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "core",
+    "crud_views",
+    "django_tables2",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -59,7 +62,7 @@ ROOT_URLCONF = "rdbhs_backoffice.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -72,6 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "rdbhs_backoffice.wsgi.application"
+LOGIN_URL = "admin:login"
 
 
 # Database
@@ -125,3 +129,6 @@ MAILERS = {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
 }
+
+CRUD_VIEWS_EXTENDS = "base.html"
+CRUD_VIEWS_MANAGE_VIEWS_ENABLED = "no"

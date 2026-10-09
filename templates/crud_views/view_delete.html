@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crud_views crud_display %}
+
+{% block title %}Delete {% model_label view %}{% endblock %}
+{% block heading %}Delete {% model_label view %}{% endblock %}
+
+{% block content %}
+<div class="card"><div class="card-body">
+  <p>Are you sure you want to delete {{ object }}? This action cannot be undone.</p>
+
+  {% for error in delete_protection_errors %}<div class="alert alert-danger">{{ error }}</div>{% endfor %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endfor %}
+
+    {% if not delete_protection_errors %}
+    <button class="btn btn-danger" type="submit">Delete {% model_label view %}</button>
+    {% endif %}
+
+    {% cv_context_url 'detail' object as detail_url %}
+    <a class="btn" href="{{ detail_url }}">Cancel</a>
+  </form>
+</div></div>
+{% endblock %}

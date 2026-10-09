@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load crud_views %}
+{% load crud_display %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} {% model_label view %}{% endblock %}
+{% block heading %}{% if object %}Edit{% else %}Add{% endif %} {% model_label view %}{% endblock %}
+{% block content %}
+
+<div class="card"><div class="card-body">
+<form method="post">
+  {% csrf_token %}
+  {% include "includes/form_fields.html" %}
+  <div class="row">
+    <div class="col-sm-9 offset-sm-3">
+      <button class="btn btn-primary" type="submit">Save {% model_label view %}</button>
+      {% cv_context_url 'list' as list_url %}
+      {% if list_url %}<a class="btn" href="{{ list_url }}">Cancel</a>{% endif %}
+    </div>
+  </div>
+</form>
+</div></div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load crud_views %}
+{% load crud_display %}
+
+{% block title %}{{ view.cv_header }} details{% endblock %}
+{% block heading %}{{ object }}{% endblock %}
+
+{% block actions %}
+{% cv_context_url 'update' object as update_url %}
+{% cv_context_url 'delete' object as delete_url %}
+
+{% if update_url %}
+<a class="btn btn-primary" href="{{ update_url }}">Edit {% model_label view %}</a>
+{% endif %}
+
+{% if delete_url %}
+<a class="btn btn-outline-danger" href="{{ delete_url }}">Delete {% model_label view %}</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <dl class="row">
+      {% detail_fields object as fields %}
+      {% for label, value in fields %}
+      <dt class="col-sm-3">{{ label }}</dt><dd class="col-sm-9">{{ value|default_if_none:"—"|default:"—"|linebreaksbr }}</dd>
+      {% endfor %}
+    </dl>
+    {% cv_context_url 'list' as list_url %}
+    {% if list_url %}<a class="btn" href="{{ list_url }}">Back to list</a>{% endif %}
+  </div>
+</div>
+{% block detail_extra %}{% endblock %}
+{% endblock %}
